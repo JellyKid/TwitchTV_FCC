@@ -1,0 +1,61 @@
+"use strict";
+const usernames = ["ESL_SC2","OgamingSC2","freecodecamp", "storbeck", "terakilobyte", "habathcx","RobotCaleb","thomasballinger","noobs2ninjas","beohoff","cretetion"];
+const protocol = "https";
+const apiURI = "api.twitch.tv/kraken";
+
+import React from "react";
+import ReactDOM from "react-dom";
+import $ from "jquery";
+
+import channel from './channel';
+
+var Channel = React.createClass({
+  render: function(){
+    return (
+      <div>
+        <div>
+          Channel {this.props.state.username}:
+        </div>
+        <div>
+          {this.props.state.updated}
+        </div>
+      </div>
+
+    );
+  }
+});
+
+
+var ChannelList = React.createClass({
+  render: function(){
+    var channels = this.props.channels.map((channel,i) => {
+      return(
+        <Channel state={channel.state} key={i} />
+      );
+    });
+    return (
+      <div className='channelList'>
+        {channels}
+      </div>
+    );
+  }
+});
+
+var ChannelBox = React.createClass({
+  render: function(){
+    return (
+      <ChannelList />
+    );
+  }
+});
+
+
+$(document).ready(() =>{
+  var channels = usernames.map((username)=>{
+    return new channel(username);
+  });
+  ReactDOM.render(<ChannelList channels={channels}/>,document.getElementById('app'));
+  channels.forEach((c)=>{
+    c.updateStream();
+  });
+});
