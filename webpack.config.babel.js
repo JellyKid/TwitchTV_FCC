@@ -38,7 +38,16 @@ var common = {
       },
       {
         test: /\.json$/,
-        loaders: ['json-loader']
+        loaders: ['json-loader'],
+        include: PATHS.app
+      },
+      {
+        test: /\.(jpe?g|png|gif|svg)$/i,
+        loaders: [
+            'file?hash=sha512&digest=hex&name=[hash].[ext]',
+            'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false'
+        ],
+        include: PATHS.app
       }
     ]
 
@@ -48,7 +57,7 @@ var common = {
       save: true // --save
     }),
     new HtmlWebpackPlugin({
-      template: 'template.ejs',
+      template: 'node_modules/html-webpack-template/index.ejs',
       title: siteTitle,
       appMountId: 'app',
       inject: false

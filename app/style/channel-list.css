@@ -1,0 +1,81 @@
+@import url(https://fonts.googleapis.com/css?family=Poppins:700|Lato);
+@import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css);
+
+.channel-list {
+  padding: 5px;
+}
+
+.channel {
+  padding: 5px 20px;
+  min-height: 85px;
+  margin: 2px 0px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.name {
+  font-family: 'Poppins', sans-serif;
+}
+
+.channelInfo > * {
+  margin-right: 15px;
+}
+
+.channelInfo {
+  font-family: 'Lato', sans-serif;
+  width: 915px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.closeButton {
+  /*display: none;*/
+}
+
+.Disconnected {
+  background-color: rgb(189, 189, 189);
+}
+
+.Disconnected .channelInfo {
+  width: 600px;
+}
+
+.Streaming {
+  background-color: rgb(170, 217, 255);
+}
+
+.logo {
+  max-width: 70px;
+  max-height: 70px;
+  border-radius: 50%;
+  border: 3px solid rgb(255, 255, 255);
+  align-self: center;
+}
+
+.smallPreview {
+  max-height: 75px;
+}
+
+.preview {
+  align-self: center;
+  border: 1px solid rgb(196, 196, 196);
+}
+
+.preview > div span{
+  display: none;
+  position: absolute;
+  z-index: 99;
+}
+
+.preview > div:hover span{
+  display:block;
+}
+
+.largePreview {
+  position: absolute;
+  left: -506px;
+}

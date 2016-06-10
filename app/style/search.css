@@ -1,0 +1,28 @@
+/*channel list*/
+@import url(https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css);
+
+/*search results*/
+.SearchOuter {
+  position: relative;
+  margin-top: -15px;
+}
+.SearchResults {
+  padding: 0px;
+  position: absolute;
+  width: 100%;
+  left: 0px;
+  background: white;
+}
+.SearchResults li {
+  border: 1px solid rgb(226, 226, 226);
+  list-style: none;
+  padding: 5px 10px;
+  cursor: default;
+}
+.SearchResults li:hover {
+  background-color: rgb(161, 221, 215);
+}
+
+.HideSearch {
+  display: none;
+}

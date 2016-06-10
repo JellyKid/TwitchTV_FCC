@@ -18,15 +18,6 @@ export function setStream(channel, stream) {
   };
 }
 
-export const SET_LINK = 'SET_LINK';
-export function setLink(channel, link) {
-  return {
-    type: SET_LINK,
-    channel: channel,
-    link: link
-  };
-}
-
 export const DELETE_CHANNEL = 'DELETE_CHANNEL';
 export function deleteChannel(channel) {
   return {
@@ -63,6 +54,13 @@ export function setStatus(channel, status) {
     type: SET_STATUS,
     channel: channel,
     status: status
+  };
+}
+
+export const SORTBY_CONNECTION = 'SORTBY_CONNECTION';
+export function sortByConnection() {
+  return {
+    type: SORTBY_CONNECTION
   };
 }
 

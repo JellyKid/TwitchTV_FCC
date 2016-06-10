@@ -1,13 +1,26 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { deleteChannel } from '../actions';
 
-export default class Channel extends React.Component {
+class Channel extends React.Component {
+  constructor(props){
+    super(props);
+    this.handleClickDelete = this.handleClickDelete.bind(this);
+  }
+  handleClickDelete(){
+    let {deleteChannel} = this.props;
+    deleteChannel(this.props.name);
+  }
   render() {
     var channelInfo;
     if(this.props.status === 'Streaming'){
       channelInfo =
         <div className="channelInfo">
           <img src={this.props.logo} className="logo" />
-          <h2>{this.props.name}</h2>
+          <a href={"https://www.twitch.tv/" + this.props.name}>
+            <h2 className="name">{this.props.name}</h2>
+          </a>
           <div className="game">
             <h3>{this.props.game}</h3>
             <h4>{this.props.description}</h4>
@@ -22,13 +35,28 @@ export default class Channel extends React.Component {
         </div>;
     } else {
       channelInfo =
-        <div className="channelInfo"><h2>{this.props.name}</h2> <h2>{this.props.status}</h2></div>;
+        <div className="channelInfo">
+          <img src="http://s.jtvnw.net/jtv_user_pictures/hosted_images/GlitchIcon_WhiteonPurple.png" className="logo" />
+          <a href={"https://www.twitch.tv/" + this.props.name}>
+            <h2 className="name">{this.props.name}</h2>
+          </a>
+          <h2>{this.props.status}</h2>
+        </div>;
     }
 
 
     return <div className={this.props.status + " channel"}>
       {channelInfo}
-      <div className="closeButton">X</div>
+      <div className="closeButton" onClick={this.handleClickDelete}>
+        <i className="fa fa-times fa-4x"></i>
+      </div>
     </div>;
   }
 }
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({deleteChannel}, dispatch);
+}
+
+
+export default connect(null,mapDispatchToProps)(Channel);

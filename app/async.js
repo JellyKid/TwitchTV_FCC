@@ -1,6 +1,6 @@
 import 'es6-promise';
 import 'whatwg-fetch';
-import { setStream, setSearch, addChannel, updateChannel, setStatus } from './actions';
+import { setStream, setSearch, addChannel, updateChannel, setStatus, sortByConnection } from './actions';
 import {protocol,apiURI,buildUrl} from './twitchAPI';
 
 export function fetchChannel(dispatch, channel) {
@@ -18,11 +18,12 @@ export function fetchChannel(dispatch, channel) {
     .then(
       json => {
         if(json.stream){
-          dispatch(setStatus(channel, 'Streaming'));          
+          dispatch(setStatus(channel, 'Streaming'));
         } else {
           dispatch(setStatus(channel, 'Disconnected'));
         }
         dispatch(setStream(channel, json.stream));
+        dispatch(sortByConnection());
       }
     );
 }
