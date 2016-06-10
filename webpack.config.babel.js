@@ -48,7 +48,7 @@ var common = {
       save: true // --save
     }),
     new HtmlWebpackPlugin({
-      template: 'node_modules/html-webpack-template/index.ejs',
+      template: 'template.ejs',
       title: siteTitle,
       appMountId: 'app',
       inject: false
