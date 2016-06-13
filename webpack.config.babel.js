@@ -10,7 +10,8 @@ import ExtractTextPlugin from "extract-text-webpack-plugin";
 
 const pkg = require('./package.json');
 
-var TARGET = process.env.NODE_ENV;
+var TARGET = process.env.npm_lifecycle_event;
+console.log(process.env.npm_lifecycle_event);
 
 const PATHS = {
   app: path.join(__dirname,'app'),
@@ -27,7 +28,8 @@ var common = {
   },
   output: {
     filename: '[name].js',
-    path: PATHS.build
+    path: PATHS.build,
+    publicPath: '/'
   },
   module: {
     loaders: [
@@ -39,14 +41,6 @@ var common = {
       {
         test: /\.json$/,
         loaders: ['json-loader'],
-        include: PATHS.app
-      },
-      {
-        test: /\.(jpe?g|png|gif|svg)$/i,
-        loaders: [
-            'file?hash=sha512&digest=hex&name=[hash].[ext]',
-            'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false'
-        ],
         include: PATHS.app
       }
     ]
@@ -84,6 +78,13 @@ var dev = {
         test: /\.css$/,
         loaders: ['style', 'css'],
         include: PATHS.app
+      },
+      {
+        test: /\.(jpe?g|png|gif|svg)$/i,
+        loaders: [
+            'file?name=/img/[name].[ext]'
+        ],
+        include: PATHS.app
       }
     ]
   }
@@ -106,7 +107,12 @@ var build = {
         warnings: false
       }
     }),
-    new ExtractTextPlugin('[name].[chunkhash].css')
+    new ExtractTextPlugin('[name].[chunkhash].css'),
+    new webpack.DefinePlugin({
+    'process.env': {
+      'NODE_ENV': JSON.stringify('production')
+    }
+  })
   ],
   output: {
     chunkFilename: '[chunkhash].js',
@@ -118,6 +124,13 @@ var build = {
         {
           test: /\.css$/,
           loader: ExtractTextPlugin.extract('style', 'css'),
+          include: PATHS.app
+        },
+        {
+          test: /\.(jpe?g|png|gif|svg)$/i,
+          loaders: [
+              'file?hash=sha512&digest=hex&name=[hash].[ext]'
+          ],
           include: PATHS.app
         }
       ]
@@ -135,8 +148,7 @@ if(TARGET === 'build'){
   module.exports = _.mergeWith({},common,build,arrayConcat);
 }
 
-if(TARGET === 'test'){
+if(TARGET === 'start'){
   var test = _.mergeWith({},common,dev,arrayConcat);
-  console.log(test.module.loaders);
   module.exports = _.mergeWith({},common,dev,arrayConcat);
 }

@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { deleteChannel } from '../actions';
+import twitchURL from "file!../images/twitch.png";
+
 
 class Channel extends React.Component {
   constructor(props){
@@ -34,9 +36,10 @@ class Channel extends React.Component {
           </div>
         </div>;
     } else {
+      console.log(twitchURL);
       channelInfo =
         <div className="channelInfo">
-          <img src="http://s.jtvnw.net/jtv_user_pictures/hosted_images/GlitchIcon_WhiteonPurple.png" className="logo" />
+          <img src={twitchURL} className="logo" />
           <a href={"https://www.twitch.tv/" + this.props.name}>
             <h2 className="name">{this.props.name}</h2>
           </a>
