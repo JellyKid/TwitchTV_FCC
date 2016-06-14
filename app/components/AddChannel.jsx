@@ -13,6 +13,7 @@ class AddChannel extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleKeyUp = this.handleKeyUp.bind(this);
     this.timeout = null;
   }
 
@@ -55,10 +56,21 @@ class AddChannel extends React.Component {
     this.setState({ value: ''});
   }
 
+  handleKeyUp(e){
+    if(e.key === 'Escape'){
+      let {setSearch} = this.props;
+      if(this.timeout){
+        clearTimeout(this.timeout);
+      }
+      this.setState({ value: ''});
+      setSearch([]);
+    }
+  }
+
   render() {
     return (
       <div>
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={this.handleSubmit} onKeyUp={this.handleKeyUp}>
           <FormGroup
             controlId="formBasicText"
           >

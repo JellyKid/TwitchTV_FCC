@@ -28,8 +28,7 @@ var common = {
   },
   output: {
     filename: '[name].js',
-    path: PATHS.build,
-    publicPath: '/'
+    path: PATHS.build
   },
   module: {
     loaders: [
@@ -80,10 +79,8 @@ var dev = {
         include: PATHS.app
       },
       {
-        test: /\.(jpe?g|png|gif|svg)$/i,
-        loaders: [
-            'file?name=/img/[name].[ext]'
-        ],
+        test: /\.(jpe?g|png|gif|svg)$/,
+        loaders: ['file-loader'],
         include: PATHS.app
       }
     ]
@@ -107,7 +104,7 @@ var build = {
         warnings: false
       }
     }),
-    new ExtractTextPlugin('[name].[chunkhash].css')  
+    new ExtractTextPlugin('[name].[chunkhash].css')
   ],
   output: {
     chunkFilename: '[chunkhash].js',
@@ -122,11 +119,8 @@ var build = {
           include: PATHS.app
         },
         {
-          test: /\.(jpe?g|png|gif|svg)$/i,
-          loaders: [
-              'file?hash=sha512&digest=hex&name=[hash].[ext]'
-          ],
-          include: PATHS.app
+          test: /\.png$/,
+          loaders: ['file-loader']
         }
       ]
     }
